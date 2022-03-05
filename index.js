@@ -1,10 +1,7 @@
 const fs = require("fs");
 const readline = require("readline");
 const { wordList } = require("./words");
-let history = require("./history.json");
-
-// let guess = process.argv[2];
-// let colours = process.argv[3];
+let history = {}
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -92,8 +89,6 @@ let play = (guess) => {
   let m1 = ` Try "${guess.toUpperCase()}". then tell me how you did here: ---> `;
   rl.question(m1, (colours) => {
     history = updateHistory({ guess, colours });
-    fs.writeFileSync("history.json", JSON.stringify(history));
-
     let shortlist = filterWords({ history, wordList });
     let letterRank = getOccurences({ shortlist });
 
