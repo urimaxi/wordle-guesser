@@ -1,4 +1,3 @@
-const fs = require("fs");
 const readline = require("readline");
 const { wordList } = require("./words");
 let history = {}
