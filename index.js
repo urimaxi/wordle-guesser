@@ -1,6 +1,6 @@
 const readline = require("readline");
 const { wordList } = require("./words");
-let history = {}
+let history = {};
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -99,6 +99,7 @@ let play = (guess) => {
 };
 
 const main = () => {
+  let openingGuess = wordList[Math.round(Math.random() * wordList.length)];
   let opener = `
   Hello, I'm the Wordle Guesser. 
   
@@ -108,7 +109,7 @@ const main = () => {
   
   Simple right? Ok.. lets go!\n`;
   console.log(opener);
-  play();
+  play(openingGuess);
 };
 
 main();
