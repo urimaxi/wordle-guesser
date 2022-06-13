@@ -50,7 +50,7 @@ const filterWords = ({ history, wordList }) => {
         wordList = wordList.filter((word) => word[e] === l);
       });
     }
-    if (hasBlack && !hasGreen) {
+    if (hasBlack && !hasGreen && !hasYellow) {
       // must not have this letter anywhere
       wordList = wordList.filter((word) => !word.includes(l));
     }
@@ -88,8 +88,11 @@ let play = (guess) => {
   let m1 = ` Try "${guess.toUpperCase()}". then tell me how you did here: ---> `;
   rl.question(m1, (colours) => {
     history = updateHistory({ guess, colours });
+    console.log(history);
     let shortlist = filterWords({ history, wordList });
     let letterRank = getOccurences({ shortlist });
+
+    // console.log(shortlist, letterRank);
 
     let rec = getRecommendation({ letterRank, shortlist });
     play(rec);
@@ -109,7 +112,7 @@ const main = () => {
   
   Simple right? Ok.. lets go!\n`;
   console.log(opener);
-  play(openingGuess);
+  play("rinse", openingGuess);
 };
 
 main();
