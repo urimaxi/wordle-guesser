@@ -88,11 +88,8 @@ let play = (guess) => {
   let m1 = ` Try "${guess.toUpperCase()}". then tell me how you did here: ---> `;
   rl.question(m1, (colours) => {
     history = updateHistory({ guess, colours });
-    console.log(history);
     let shortlist = filterWords({ history, wordList });
     let letterRank = getOccurences({ shortlist });
-
-    // console.log(shortlist, letterRank);
 
     let rec = getRecommendation({ letterRank, shortlist });
     play(rec);
@@ -101,8 +98,14 @@ let play = (guess) => {
   });
 };
 
-const main = () => {
+const getOpenongGuess = () => {
   let openingGuess = wordList[Math.round(Math.random() * wordList.length)];
+  let uniqueLetters = [...new Set(openingGuess.split(""))];
+  return uniqueLetters.length === 5 ? openingGuess : getOpenongGuess();
+};
+
+const main = () => {
+  let openingGuess = getOpenongGuess();
   let opener = `
   Hello, I'm the Wordle Guesser. 
   
@@ -112,7 +115,7 @@ const main = () => {
   
   Simple right? Ok.. lets go!\n`;
   console.log(opener);
-  play("rinse", openingGuess);
+  play(openingGuess);
 };
 
 main();
